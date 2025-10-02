@@ -1,0 +1,34 @@
+{
+  "name": "annotationsPlugin",
+  "uri": "http://annotationsPlugin/schema/1.0",
+  "prefix": "annotationsPlugin",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "types": [
+    {
+      "name": "Image",
+      "superClass": ["Element"],
+      "properties": [
+        {
+          "name": "path",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "TextAnnotation",
+      "extends": ["bpmn:TextAnnotation"],
+      "properties": [
+        {
+          "name": "image",
+          "type": "Image",
+          "isMany": false
+        }
+      ]
+    }
+  ],
+  "enumerations": [],
+  "associations": []
+}
