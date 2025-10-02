@@ -34,14 +34,21 @@ Part of the bpmn [diagram1.bpmn](/resources/examples/diagram1.bpmn) file where i
 - Training Materials: Create more engaging and self-explanatory process models for onboarding
 
 ## Installation
-Download the latest version from the [releases page](https://github.com/marcinbien/camunda-modeler-annotations-plugin/releases/latest).
-
-[![Latest Release](https://img.shields.io/github/v/release/marcinbien/camunda-modeler-annotations-plugin)](https://github.com/marcinbien/camunda-modeler-annotations-plugin/releases/latest)
-
-Build the project and then simply drop the plugin into your Camunda Modeler plugins directory and restart the application. The image annotation functionality will automatically become available for all text annotations in your diagrams.
-
-- `npm install`
-- `npm run bundle`
-- copy the entire directory to the plugins directory
+- Download [camunda-modeler-annotations-plugin-v0.0.2.zip
+](https://github.com/marcinbien/camunda-modeler-annotations-plugin/releases/latest/download/camunda-modeler-annotations-plugin-v0.0.2.zip) from [releases page](https://github.com/marcinbien/camunda-modeler-annotations-plugin/releases/latest) [![Latest Release](https://img.shields.io/github/v/release/marcinbien/camunda-modeler-annotations-plugin)](https://github.com/marcinbien/camunda-modeler-annotations-plugin/releases/latest).
+- Unpack the repository. You should see the `camunda-modeler-annotations-plugin` directory
+- Copy the entire directory to the Camunda Modeler plugins directory
     - Windows `%APPDATA%\camunda-modeler\plugins`
     - MacOS `~/Library/Application\ Support/camunda-modeler/plugins`
+
+The directory structure should look like this
+```
+%APPDATA% or ~/Library/Application\ Support/
+
+└──camunda-modeler/
+   └── resources
+       └── plugins
+           └── camunda-modeler-annotations-plugin
+               ├── index.js
+               ├── annotations-plugin.js
+```
