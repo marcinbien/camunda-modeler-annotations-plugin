@@ -1,4 +1,4 @@
-import path from 'path-browserify';
+import path from 'path-unified';
 import { getActiveBpmnDiagramFilePath } from '../status-bar/info';
 
 /**
