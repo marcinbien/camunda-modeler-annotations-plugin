@@ -1,5 +1,5 @@
 import path from 'path-browserify';
-import { getActiveBpmnDiagramFilePath } from '../info/info';
+import { getActiveBpmnDiagramFilePath } from '../status-bar/info';
 
 /**
  * 
@@ -15,7 +15,10 @@ export const getAnnotationImageFilePath = (annotationImagePath) => {
     }
 
     const activeBpmnDiagramFilePath = getActiveBpmnDiagramFilePath();
-    const activeDir = path.dirname(activeFilePath);
-
-    return path.resolve(activeDir, annotationImagePath);
+    console.log("Active BPMN diagram file path:", activeBpmnDiagramFilePath);
+    const activeDir = path.dirname(activeBpmnDiagramFilePath);
+    console.log("Active BPMN diagram directory:", activeDir);
+    const imagePath = path.resolve(activeDir, annotationImagePath);
+    console.log("Resolved image path:", imagePath);
+    return imagePath;
 }

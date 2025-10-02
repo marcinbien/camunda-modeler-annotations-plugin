@@ -55,7 +55,7 @@ const createImageGroup = (element, translate) => {
         id: 'image',
         label: translate('Image'),
         entries: imagePath(element),
-        tooltip: translate('Make sure you know what you are doing!')
+        tooltip: translate('Display an image inside this annotation'),
     };
 
     return imageGroup;

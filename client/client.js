@@ -8,6 +8,7 @@ import ResizeAllRules from "./resize-all-rules";
 import annoationImageModdleExtension from "./annotation-image/annoation-image-moddle-extension.json";
 import AnnotationImagePropertiesPanel from "./annotation-image/properties-panel";
 import Info from "./annotation-image/status-bar/info";
+import ImageAnnotationRenderer from "./annotation-image/renderer";
 
 // Allow resizing all shapes
 registerBpmnJSPlugin(ResizeAllRules);
@@ -20,3 +21,5 @@ registerBpmnJSPlugin(AnnotationImagePropertiesPanel);
 
 // Resgister status bar info
 registerClientExtension(Info);
+
+registerBpmnJSPlugin(ImageAnnotationRenderer);

@@ -1,20 +1,15 @@
 import React, { Fragment, PureComponent } from "camunda-modeler-plugin-helpers/react";
 import { Fill } from "camunda-modeler-plugin-helpers/components";
-import path from 'path-browserify';
 
 let applicationState = {
     activeFile: null,
 };
 
-export const getActiveFile = () => {
-    return applicationState?.activeFile;
-}
-
 export const getActiveBpmnDiagramFilePath = () => {
     if (!applicationState?.activeFile) {
         return null;
     }
-    return path.dirname(applicationState?.activeFile);
+    return applicationState?.activeFile;
 }
 
 export default class Info extends PureComponent {
@@ -37,7 +32,7 @@ export default class Info extends PureComponent {
         });
 
         subscribe("tab.saved", (wd) => {
-            applicationState.activeFile = wd?.path?.file?.path ?? null;
+            applicationState.activeFile = wd?.tab?.file?.path ?? null;
             console.log("Info tab.saved", wd);
         });
     }

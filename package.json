@@ -28,7 +28,9 @@
     "bpmn-js": "*",
     "diagram-js": "*",
     "inherits-browser": "^0.1.0",
-    "path-browserify": "^1.0.1"
+    "min-dash": "^4.2.3",
+    "path-browserify": "^1.0.1",
+    "tiny-svg": "^4.1.3"
   },
   "peerDependencies": {
     "bpmn-js": "*",
