@@ -12,7 +12,7 @@ This plugin extends the standard text annotation functionality in  [Camunda Mode
 ### Diagram exported to png file
 ![Diagram exported to png file](/resources/examples/diagram1.png)
 
-## Diagram definition 
+## Definition of diagram
 Part of the bpmn [diagram1.bpmn](/resources/examples/diagram1.bpmn) file where image annotation is added.
 ```xml
 <bpmn:textAnnotation id="TextAnnotation_0a7rtgj">
