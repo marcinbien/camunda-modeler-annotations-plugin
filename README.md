@@ -6,10 +6,22 @@ This plugin extends the standard text annotation functionality in  [Camunda Mode
 
 ## Examples
 
-![](/resources/examples/diagram1.png)
+### Diagram in Camunda Modeler 
+![Diagram in Camunda Modeler](/resources/examples/diagram1-modeler.png)
 
-![](/resources/examples/diagram1-modeler.png)
+### Diagram exported to png file
+![Diagram exported to png file](/resources/examples/diagram1.png)
 
+## Diagram definition 
+Part of the bpmn [diagram1.bpmn](/resources/examples/diagram1.bpmn) file where image annotation is added.
+```xml
+<bpmn:textAnnotation id="TextAnnotation_0a7rtgj">
+  <bpmn:extensionElements>
+    <annotationsPlugin:image path="./personal-details.png" />
+  </bpmn:extensionElements>
+</bpmn:textAnnotation>
+
+```
 
 ## Key Features
 - Inline Image Display: Embed images directly within text annotations
@@ -29,23 +41,3 @@ Build the project and then simply drop the plugin into your Camunda Modeler plug
 - copy the entire directory to the plugins directory
     - Windows `%APPDATA%\camunda-modeler\plugins`
     - MacOS `~/Library/Application\ Support/camunda-modeler/plugins`
-
-## Moddle extension
-```xml
-<bpmn:definitions 
-  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
-  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-  xmlns:custom="http://custom/schema/1.0"
-  ...>
-  
-  <bpmn:process id="Process_1">
-    <bpmn:textAnnotation id="TextAnnotation_1q2zfno">
-      <bpmn:text>Sample text</bpmn:text>
-      <bpmn:extensionElements>
-        <annotationsPlugin:image path="./assets/images/my-image.png" />
-      </bpmn:extensionElements>
-    </bpmn:textAnnotation>
-  </bpmn:process>
-  
-</bpmn:definitions>
-```
