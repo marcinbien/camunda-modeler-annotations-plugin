@@ -2,7 +2,14 @@
 Enhance your BPMN documentation with visual richness while maintaining process clarity and standards compliance.
 
 ## Overview
-This plugin extends the standard text annotation functionality in Camunda Modeler, allowing users to embed and display images inline with their documentation. Perfect for adding visual context, screenshots, icons, or reference materials directly into your process models.
+This plugin extends the standard text annotation functionality in  [Camunda Modeler](https://github.com/camunda/camunda-modeler), allowing users to embed and display images inline with their documentation. Perfect for adding visual context, screenshots, icons, or reference materials directly into your process models.
+
+## Examples
+
+![](/resources/examples/diagram1.png)
+
+![](/resources/examples/diagram1-modeler.png)
+
 
 ## Key Features
 - Inline Image Display: Embed images directly within text annotations
