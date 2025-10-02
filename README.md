@@ -34,6 +34,10 @@ Part of the bpmn [diagram1.bpmn](/resources/examples/diagram1.bpmn) file where i
 - Training Materials: Create more engaging and self-explanatory process models for onboarding
 
 ## Installation
+Download the latest version from the [releases page](https://github.com/marcinbien/camunda-modeler-annotations-plugin/releases/latest).
+
+[![Latest Release](https://img.shields.io/github/v/release/marcinbien/camunda-modeler-annotations-plugin)](https://github.com/marcinbien/camunda-modeler-annotations-plugin/releases/latest)
+
 Build the project and then simply drop the plugin into your Camunda Modeler plugins directory and restart the application. The image annotation functionality will automatically become available for all text annotations in your diagrams.
 
 - `npm install`
