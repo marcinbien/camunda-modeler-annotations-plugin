@@ -5,21 +5,26 @@ import {
 } from "camunda-modeler-plugin-helpers";
 
 import ResizeAllRules from "./resize-all-rules";
-import annoationImageModdleExtension from "./annotation-image/annoation-image-moddle-extension.json";
+import annotationCombinedModdleExtension from "./annotation-combined-moddle-extension.json";
 import AnnotationImagePropertiesPanel from "./annotation-image/properties-panel";
+import AnnotationMarkdownPropertiesPanel from "./annotation-markdown/properties-panel";
 import Info from "./annotation-image/status-bar/info";
 import ImageAnnotationRenderer from "./annotation-image/renderer";
+import MarkdownAnnotationRenderer from "./annotation-markdown/renderer";
 
 // Allow resizing all shapes
 registerBpmnJSPlugin(ResizeAllRules);
 
-// Register custom moddle extiension <annotationImage:image path="./assets/images/my-image.png" />
-registerBpmnJSModdleExtension(annoationImageModdleExtension);
+// Register combined moddle extension for both image and markdown features
+registerBpmnJSModdleExtension(annotationCombinedModdleExtension);
 
-// Register custom properties panel
+// Register custom properties panels
 registerBpmnJSPlugin(AnnotationImagePropertiesPanel);
+registerBpmnJSPlugin(AnnotationMarkdownPropertiesPanel);
 
-// Resgister status bar info
+// Register status bar info
 registerClientExtension(Info);
 
+// Register custom renderers
 registerBpmnJSPlugin(ImageAnnotationRenderer);
+registerBpmnJSPlugin(MarkdownAnnotationRenderer);

@@ -1,0 +1,50 @@
+{
+  "name": "annotationsPlugin",
+  "uri": "http://annotationsPlugin/schema/1.0",
+  "prefix": "annotationsPlugin",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "types": [
+    {
+      "name": "Image",
+      "superClass": ["Element"],
+      "properties": [
+        {
+          "name": "path",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Markdown",
+      "superClass": ["Element"],
+      "properties": [
+        {
+          "name": "renderAsMarkdown",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "TextAnnotation",
+      "extends": ["bpmn:TextAnnotation"],
+      "properties": [
+        {
+          "name": "image",
+          "type": "Image",
+          "isMany": false
+        },
+        {
+          "name": "markdown",
+          "type": "Markdown",
+          "isMany": false
+        }
+      ]
+    }
+  ],
+  "enumerations": [],
+  "associations": []
+}
