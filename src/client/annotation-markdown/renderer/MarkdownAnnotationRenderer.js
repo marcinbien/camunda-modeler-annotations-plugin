@@ -57,66 +57,53 @@ export default class MarkdownAnnotationRenderer {
 
     console.log('Rendering markdown annotation for:', element.id, { width, height, text });
 
-    // Disable auto-resizing - let users control the size completely
-    console.log('Using user-defined size:', { width, height });
+    // Check if sticky note style is enabled
+    const stickyNoteSettings = this._getStickyNoteSettings(element);
+    const isStickyNote = stickyNoteSettings.enabled;
+
+    console.log('Sticky note settings:', stickyNoteSettings);
 
     // Clear the graphics element completely
     while (gfx.firstChild) {
       gfx.removeChild(gfx.firstChild);
     }
 
-    // Draw the comment-style bracket lines
-    const bracketLength = 10; // Length of horizontal segments
+    let borderElement;
 
-    // Vertical line
-    const verticalLine = svgCreate('line');
-    svgAttr(verticalLine, {
-      x1: 0,
-      y1: 0,
-      x2: 0,
-      y2: height,
-      stroke: '#666',
-      strokeWidth: 2
-    });
-    svgAppend(gfx, verticalLine);
-
-    // Top horizontal line
-    const topLine = svgCreate('line');
-    svgAttr(topLine, {
-      x1: 0,
-      y1: 0,
-      x2: bracketLength,
-      y2: 0,
-      stroke: '#666',
-      strokeWidth: 2
-    });
-    svgAppend(gfx, topLine);
-
-    // Bottom horizontal line
-    const bottomLine = svgCreate('line');
-    svgAttr(bottomLine, {
-      x1: 0,
-      y1: height,
-      x2: bracketLength,
-      y2: height,
-      stroke: '#666',
-      strokeWidth: 2
-    });
-    svgAppend(gfx, bottomLine);
+    if (isStickyNote) {
+      // Render as sticky note
+      borderElement = this._drawStickyNote(gfx, width, height, stickyNoteSettings.color);
+    } else {
+      // Render as comment with bracket lines
+      borderElement = this._drawCommentBracket(gfx, width, height);
+    }
 
     // Create foreignObject for HTML content
     const foreignObject = svgCreate('foreignObject');
 
-    // Calculate content dimensions with padding (extra left padding for the line)
-    const leftPadding = 15; // Space for the left line
-    const topBottomPadding = 5;
-    const rightPadding = 10;
+    // Calculate content dimensions with padding based on style
+    let leftPadding, topPadding, rightPadding, bottomPadding;
+
+    if (isStickyNote) {
+      // Sticky note padding - more space from edges, account for folded corner
+      leftPadding = 10;
+      topPadding = 8;
+      rightPadding = 20; // Extra space for folded corner
+      bottomPadding = 8;
+    } else {
+      // Comment bracket padding - space for left bracket line
+      leftPadding = 15;
+      topPadding = 5;
+      rightPadding = 10;
+      bottomPadding = 5;
+    }
+
     const contentWidth = width - leftPadding - rightPadding;
-    const contentHeight = height - (topBottomPadding * 2);
+    const contentHeight = height - topPadding - bottomPadding;
 
     svgAttr(foreignObject, {
       x: leftPadding,
-      y: topBottomPadding,
+      y: topPadding,
       width: contentWidth,
       height: contentHeight
     });
@@ -166,7 +153,149 @@ export default class MarkdownAnnotationRenderer {
     // Add foreignObject to the graphics element
     svgAppend(gfx, foreignObject);
 
+    return borderElement;
+  }
+
+  _getStickyNoteSettings(element) {
+    const bo = element.businessObject;
+    const extensionElements = bo.extensionElements;
+
+    if (!extensionElements || !extensionElements.values) {
+      return { enabled: false, color: 'yellow' };
+    }
+
+    const markdownExtension = extensionElements.values.find(
+      ext => ext.$type === 'annotationsPlugin:Markdown'
+    );
+
+    if (!markdownExtension) {
+      return { enabled: false, color: 'yellow' };
+    }
+
+    return {
+      enabled: markdownExtension.stickyNote === 'yes',
+      color: markdownExtension.stickyNoteColor || 'yellow'
+    };
+  }
+
+  _drawCommentBracket(gfx, width, height) {
+    const bracketLength = 10; // Length of horizontal segments
+
+    // Vertical line
+    const verticalLine = svgCreate('line');
+    svgAttr(verticalLine, {
+      x1: 0,
+      y1: 0,
+      x2: 0,
+      y2: height,
+      stroke: '#666',
+      strokeWidth: 2
+    });
+    svgAppend(gfx, verticalLine);
+
+    // Top horizontal line
+    const topLine = svgCreate('line');
+    svgAttr(topLine, {
+      x1: 0,
+      y1: 0,
+      x2: bracketLength,
+      y2: 0,
+      stroke: '#666',
+      strokeWidth: 2
+    });
+    svgAppend(gfx, topLine);
+
+    // Bottom horizontal line
+    const bottomLine = svgCreate('line');
+    svgAttr(bottomLine, {
+      x1: 0,
+      y1: height,
+      x2: bracketLength,
+      y2: height,
+      stroke: '#666',
+      strokeWidth: 2
+    });
+    svgAppend(gfx, bottomLine);
+
     return verticalLine;
+  }
+
+  _drawStickyNote(gfx, width, height, color) {
+    // Get color values
+    const colors = this._getStickyNoteColors(color);
+
+    // Create main sticky note rectangle
+    const rect = svgCreate('rect');
+    svgAttr(rect, {
+      x: 0,
+      y: 0,
+      width: width,
+      height: height,
+      fill: colors.background,
+      stroke: colors.border,
+      strokeWidth: 1,
+      rx: 3, // Slightly rounded corners
+      ry: 3
+    });
+    svgAppend(gfx, rect);
+
+    // Create folded corner effect
+    const cornerSize = 12;
+    const cornerPath = svgCreate('path');
+    const pathData = `M ${width - cornerSize} 0 L ${width} 0 L ${width} ${cornerSize} Z`;
+    svgAttr(cornerPath, {
+      d: pathData,
+      fill: colors.shadow,
+      stroke: colors.border,
+      strokeWidth: 1
+    });
+    svgAppend(gfx, cornerPath);
+
+    // Add small shadow line for depth
+    const shadowLine = svgCreate('line');
+    svgAttr(shadowLine, {
+      x1: width - cornerSize,
+      y1: 0,
+      x2: width,
+      y2: cornerSize,
+      stroke: colors.border,
+      strokeWidth: 1
+    });
+    svgAppend(gfx, shadowLine);
+
+    return rect;
+  }
+
+  _getStickyNoteColors(color) {
+    const colorMap = {
+      yellow: {
+        background: '#FFFACD', // Light goldenrod yellow
+        border: '#F0E68C',     // Khaki
+        shadow: '#F5DEB3'      // Wheat
+      },
+      blue: {
+        background: '#E6F3FF', // Light sky blue
+        border: '#87CEEB',     // Sky blue
+        shadow: '#B0E0E6'      // Powder blue
+      },
+      green: {
+        background: '#F0FFF0', // Honeydew
+        border: '#90EE90',     // Light green
+        shadow: '#98FB98'      // Pale green
+      },
+      pink: {
+        background: '#FFF0F5', // Lavender blush
+        border: '#FFB6C1',     // Light pink
+        shadow: '#FFC0CB'      // Pink
+      },
+      lavender: {
+        background: '#F8F4FF', // Ghost white with lavender tint
+        border: '#E6E6FA',     // Lavender
+        shadow: '#DDA0DD'      // Plum
+      }
+    };
+
+    return colorMap[color] || colorMap.yellow;
   }
 
   _sanitizeHtml(html) {

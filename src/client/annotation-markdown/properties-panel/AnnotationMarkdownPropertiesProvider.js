@@ -1,4 +1,6 @@
 import markdownToggle from './parts/MarkdownToggle';
+import stickyNoteToggle from './parts/StickyNoteToggle';
+import stickyNoteColor from './parts/StickyNoteColor';
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
 const LOW_PRIORITY = 500;
@@ -52,7 +54,11 @@ const createMarkdownGroup = (element, translate) => {
     const markdownGroup = {
         id: 'markdown',
         label: translate('Markdown'),
-        entries: markdownToggle(element),
+        entries: [
+            ...markdownToggle(element),
+            ...stickyNoteToggle(element),
+            ...stickyNoteColor(element)
+        ],
         tooltip: translate('Configure markdown rendering for this annotation'),
     };
 

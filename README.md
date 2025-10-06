@@ -23,6 +23,10 @@ Part of the bpmn [diagram1.bpmn](/resources/examples/diagram1.bpmn) file where i
 
 ```
 
+## Example Markdown annotations sticky notes style
+![Markdown annotations](/resources/examples/MarkdownNotes.gif)
+
+
 ## ✨ Key Features
 - 🖼️ Inline Image Display: Embed images directly within text annotations
 - 📁 Multiple Format Support: Compatible with common image formats including PNG, JPG, GIF, and SVG

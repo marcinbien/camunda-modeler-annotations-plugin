@@ -4,11 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Camunda Modeler plugin that extends BPMN text annotations with two main features:
+This is a Camunda Modeler plugin that extends BPMN text annotations with multiple features:
 1. **Image Annotations**: Display embedded images within text annotations
 2. **Markdown Annotations**: Render annotation text using markdown syntax with HTML formatting
+3. **Sticky Notes**: Render markdown annotations as colorful sticky notes with folded corner effects
 
-The plugin allows users to add visual context and rich formatting to BPMN diagrams while maintaining full BPMN 2.0 standard compliance by storing configuration as extension properties.
+The plugin allows users to add visual context, rich formatting, and visual styling to BPMN diagrams while maintaining full BPMN 2.0 standard compliance by storing configuration as extension properties.
 
 ## Development Commands
 
@@ -41,9 +42,9 @@ The plugin is built using webpack and follows the Camunda Modeler plugin archite
 3. **Main Plugin Modules**:
    - `ResizeAllRules` - Allows resizing all BPMN shapes
    - `AnnotationImagePropertiesPanel` - Properties panel for image path configuration
-   - `AnnotationMarkdownPropertiesPanel` - Properties panel for markdown toggle
+   - `AnnotationMarkdownPropertiesPanel` - Properties panel for markdown toggle, sticky note options, and color selection
    - `ImageAnnotationRenderer` - Custom renderer for displaying images in annotations
-   - `MarkdownAnnotationRenderer` - Custom renderer for markdown HTML rendering in SVG foreignObject
+   - `MarkdownAnnotationRenderer` - Custom renderer for markdown HTML rendering with comment brackets or sticky note styling
    - `Info` - Status bar component
 
 ### Directory Structure
@@ -109,6 +110,25 @@ Markdown rendering is enabled using this extension format:
   </bpmn:extensionElements>
 </bpmn:textAnnotation>
 ```
+
+### Sticky Notes
+Sticky note styling with color selection:
+```xml
+<bpmn:textAnnotation id="TextAnnotation_xxx">
+  <bpmn:text># Important Note
+This is displayed as a sticky note!</bpmn:text>
+  <bpmn:extensionElements>
+    <annotationsPlugin:markdown renderAsMarkdown="true" stickyNote="yes" stickyNoteColor="yellow" />
+  </bpmn:extensionElements>
+</bpmn:textAnnotation>
+```
+
+Available sticky note colors:
+- `yellow` - Canary Yellow
+- `blue` - Sky Blue
+- `green` - Lime Green
+- `pink` - Soft Pink
+- `lavender` - Lavender / Lilac
 
 ### Combined Features
 Both features can be used together on the same annotation:

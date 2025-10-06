@@ -25,6 +25,16 @@
           "name": "renderAsMarkdown",
           "isAttr": true,
           "type": "Boolean"
+        },
+        {
+          "name": "stickyNote",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "stickyNoteColor",
+          "isAttr": true,
+          "type": "String"
         }
       ]
     },
