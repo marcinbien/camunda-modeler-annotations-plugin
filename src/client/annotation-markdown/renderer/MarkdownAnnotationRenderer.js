@@ -62,31 +62,58 @@ export default class MarkdownAnnotationRenderer {
       gfx.removeChild(gfx.firstChild);
     }
 
-    // Draw the annotation border manually
-    const rect = svgCreate('rect');
-    svgAttr(rect, {
-      x: 0,
-      y: 0,
-      width: width,
-      height: height,
-      fill: 'none',
-      stroke: '#000',
-      strokeWidth: 1,
-      strokeDasharray: '5,5'
+    // Draw the comment-style bracket lines
+    const bracketLength = 10; // Length of horizontal segments
+
+    // Vertical line
+    const verticalLine = svgCreate('line');
+    svgAttr(verticalLine, {
+      x1: 0,
+      y1: 0,
+      x2: 0,
+      y2: height,
+      stroke: '#666',
+      strokeWidth: 2
     });
-    svgAppend(gfx, rect);
+    svgAppend(gfx, verticalLine);
+
+    // Top horizontal line
+    const topLine = svgCreate('line');
+    svgAttr(topLine, {
+      x1: 0,
+      y1: 0,
+      x2: bracketLength,
+      y2: 0,
+      stroke: '#666',
+      strokeWidth: 2
+    });
+    svgAppend(gfx, topLine);
+
+    // Bottom horizontal line
+    const bottomLine = svgCreate('line');
+    svgAttr(bottomLine, {
+      x1: 0,
+      y1: height,
+      x2: bracketLength,
+      y2: height,
+      stroke: '#666',
+      strokeWidth: 2
+    });
+    svgAppend(gfx, bottomLine);
 
     // Create foreignObject for HTML content
     const foreignObject = svgCreate('foreignObject');
 
-    // Calculate content dimensions with padding
-    const padding = 10;
-    const contentWidth = width - (padding * 2);
-    const contentHeight = height - (padding * 2);
+    // Calculate content dimensions with padding (extra left padding for the line)
+    const leftPadding = 15; // Space for the left line
+    const topBottomPadding = 5;
+    const rightPadding = 10;
+    const contentWidth = width - leftPadding - rightPadding;
+    const contentHeight = height - (topBottomPadding * 2);
 
     svgAttr(foreignObject, {
-      x: padding,
-      y: padding,
+      x: leftPadding,
+      y: topBottomPadding,
       width: contentWidth,
       height: contentHeight
     });
@@ -136,7 +163,7 @@ export default class MarkdownAnnotationRenderer {
     // Add foreignObject to the graphics element
     svgAppend(gfx, foreignObject);
 
-    return rect;
+    return verticalLine;
   }
 
   _sanitizeHtml(html) {
