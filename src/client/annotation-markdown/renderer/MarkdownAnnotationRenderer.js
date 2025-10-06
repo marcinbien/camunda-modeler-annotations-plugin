@@ -52,10 +52,13 @@ export default class MarkdownAnnotationRenderer {
   }
 
   _renderMarkdownAnnotation(element, gfx) {
-    const { width, height } = element;
+    let { width, height } = element;
     const text = element.businessObject.text || '';
 
     console.log('Rendering markdown annotation for:', element.id, { width, height, text });
+
+    // Disable auto-resizing - let users control the size completely
+    console.log('Using user-defined size:', { width, height });
 
     // Clear the graphics element completely
     while (gfx.firstChild) {
