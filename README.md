@@ -1,6 +1,9 @@
 # 🎨 Camunda Modeler Annotations Plugin
 Enhance your BPMN documentation with visual richness while maintaining process clarity and standards compliance.
 
+![GitHub Downloads](https://img.shields.io/github/downloads/marcinbien/camunda-modeler-annotations-plugin/total)
+
+
 ## 📋 Overview
 This plugin extends the standard text annotation functionality in  [Camunda Modeler](https://github.com/camunda/camunda-modeler), allowing users to embed and display images inline with their documentation. Perfect for adding visual context, screenshots, icons, or reference materials directly into your process models.
 
